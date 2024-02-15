@@ -1,5 +1,6 @@
 # Project Posts App Vue + Bootstrap
 
+-[Preview page](https://posts-app-vue.netlify.app/)
 
 ## Project Setup
 
