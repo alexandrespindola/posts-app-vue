@@ -1,26 +1,23 @@
 <script setup>
 
+// Import the ref and onMounted functions
 import { ref, onMounted } from 'vue'
 import BlogPost from './components/BlogPost.vue'
 import PaginatePost from './components/PaginatePost.vue';
 import LoadingSpinner from './components/LoadingSpinner.vue'
 import { capitalize } from './utils/functions.js'
 
+// Data
 const posts = ref([])
 const postXpage = 10
 const start = ref(0)
 const end = ref(postXpage)
-const loading = ref(false)
-
+const loading = ref(true)
 const favorite = ref('')
 
+// Functions
 const changeFavorite = (title) => {
     favorite.value = title
-}
-
-const next = () => {
-    start.value += postXpage
-   end.value += postXpage
 }
 
 const prev = () => {
@@ -28,8 +25,26 @@ const prev = () => {
    end.value -= postXpage
 }
 
-onMounted(async() => {
-  loading.value = true
+const next = () => {
+    start.value += postXpage
+   end.value += postXpage
+}
+
+// onMounted(async() => {
+//   try {
+//     const rest = await fetch('https://jsonplaceholder.typicode.com/posts')
+//     posts.value = await rest.json()
+//   } catch (error) {
+//     console.error('Error:', error)
+//   }
+//   finally {
+//     loading.value = false
+//   }
+
+// })
+
+// Fetch data
+const fetchData = async () => {
   try {
     const rest = await fetch('https://jsonplaceholder.typicode.com/posts')
     posts.value = await rest.json()
@@ -39,8 +54,9 @@ onMounted(async() => {
   finally {
     loading.value = false
   }
-  
-})
+}
+
+fetchData()
 
 </script>
 
